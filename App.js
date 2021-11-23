@@ -1,35 +1,48 @@
-import { StatusBar } from 'expo-status-bar';
-
 import * as React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, SafeAreaView } from 'react-native';
 
-// Import Screens
-import HomeScreen from './screens/HomeScreen';
-import MaintenanceScreen from './screens/MaintenanceScreen';
-import StatisticsScreen from './screens/StatisticsScreen';
+import BottomTabNavigator from './components/navigation/BottomTabNavigator';
+import HeaderDropdown from './components/navigation/HeaderDropdown';
+import { Header } from 'react-native/Libraries/NewAppScreen';
 
-// Import Navigation
+const ACTIVE_TAB_COLOR = '#69A6F7'
+
+let cars = [
+  {
+    "name": "Mazda 6",
+    "color": "Silver",
+    "type": "Sedan",
+    "capacity": 5
+  },
+  {
+    "name": "Acura TL",
+    "color": "Red",
+    "type": "Sedan",
+    "capacity": 5
+  },
+]
+
 const Drawer = createDrawerNavigator();
 
-
 export default function App() {
+  const car = cars[0]
+  
+
   return (
     <NavigationContainer>
-      <Drawer.Navigator initialRouteName="Home">
-        <Drawer.Screen name="Home" component={HomeScreen} />
-        <Drawer.Screen name="Stats" component={StatisticsScreen} />
-        <Drawer.Screen name="Maintenance" component={MaintenanceScreen} />
-      </Drawer.Navigator>
+      <HeaderDropdown />
+      <BottomTabNavigator car = {car} />
     </NavigationContainer>
+      
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: ACTIVE_TAB_COLOR,
     alignItems: 'center',
     justifyContent: 'center',
   },

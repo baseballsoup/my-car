@@ -1,7 +1,9 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-export default function MaintenanceScreen() {
+export default function HomeScreen({ route }) {
+  const name = route.params.name
+
   return (
     <View
       style={{
@@ -9,7 +11,7 @@ export default function MaintenanceScreen() {
         justifyContent: "center",
         alignItems: "center"
       }}>
-      <Text>Hello, world! Maintenance page</Text>
+      <Text>Hello, world! Home page for {name}</Text>
     </View>
   )
 }
