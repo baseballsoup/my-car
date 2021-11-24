@@ -1,49 +1,121 @@
 import * as React from 'react';
-import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
-import { StyleSheet, SafeAreaView } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { FontAwesome5 } from "@expo/vector-icons";
 
-import BottomTabNavigator from './components/navigation/BottomTabNavigator';
-import HeaderDropdown from './components/navigation/HeaderDropdown';
-import { Header } from 'react-native/Libraries/NewAppScreen';
+// Import Screens
+import HomeScreen from './components/screens/HomeScreen';
+import MaintenanceScreen from './components/screens/MaintenanceScreen';
+import StatisticsScreen from './components/screens/StatisticsScreen';
+import CarScreen from './components/screens/CarScreen';
+
+import { CAR_DATA, CAR_TYPES } from './carData'
 
 const ACTIVE_TAB_COLOR = '#69A6F7'
+const INACTIVE_TAB_COLOR = '#aaa'
 
-let cars = [
-  {
-    "name": "Mazda 6",
-    "color": "Silver",
-    "type": "Sedan",
-    "capacity": 5
-  },
-  {
-    "name": "Acura TL",
-    "color": "Red",
-    "type": "Sedan",
-    "capacity": 5
-  },
-]
+const headerStyles = {
+  headerTintColor: '#fff',
+  headerStyle: {
+    borderBottomWidth: 0,
+    backgroundColor: ACTIVE_TAB_COLOR,
+    shadowColor: '#000',
+    shadowOpacity: 0.25,
+    shadowRadius: 20,
+    shadowOffset: { width: 0, height: 0 }
+  }
+}
 
-const Drawer = createDrawerNavigator();
+const Tab = createBottomTabNavigator();
 
 export default function App() {
-  const car = cars[0]
-  
+  const car = CAR_DATA[1]
 
   return (
     <NavigationContainer>
-      <HeaderDropdown />
-      <BottomTabNavigator car = {car} />
+      <Tab.Navigator
+        screenOptions={{
+          ...headerStyles
+        }}
+      >
+        <Tab.Screen 
+          name="Home"
+          component={HomeScreen}
+          initialParams = {{ name : car.name }}
+          options={{
+            tabBarOptions: {
+              activeTintColor: ACTIVE_TAB_COLOR,
+            },
+            tabBarIcon: (tabInfo) => {
+              return (
+                <FontAwesome5
+                  name="home"
+                  size={24}
+                  color={tabInfo.focused ? ACTIVE_TAB_COLOR : INACTIVE_TAB_COLOR}
+                />
+              );
+            },
+        }}/>
+  
+        <Tab.Screen 
+          name="Statistics"
+          component={StatisticsScreen}
+          initialParams = {{ name : car.name}}
+          options={{
+              tabBarOptions: {
+              activeTintColor: ACTIVE_TAB_COLOR,
+            },
+            tabBarIcon: (tabInfo) => {
+              return (
+                <FontAwesome5
+                  name="chart-area"
+                  size={24}
+                  color={tabInfo.focused ? ACTIVE_TAB_COLOR : INACTIVE_TAB_COLOR}
+                />
+              );
+            },
+        }}/>
+  
+        <Tab.Screen 
+          name="Maintenance"
+          component={MaintenanceScreen}
+          initialParams = {{ name : car.name}}
+          options={{
+          
+            tabBarOptions: {
+              activeTintColor: ACTIVE_TAB_COLOR,
+            },
+            tabBarIcon: (tabInfo) => {
+              return (
+                <FontAwesome5
+                  name="tools"
+                  size={24}
+                  color={tabInfo.focused ? ACTIVE_TAB_COLOR : INACTIVE_TAB_COLOR}
+                />
+              );
+            },
+            
+        }}/> 
+
+        <Tab.Screen 
+          name="Cars"
+          component={CarScreen}
+          options={{
+            tabBarOptions: {
+              activeTintColor: ACTIVE_TAB_COLOR,
+            },
+            tabBarIcon: (tabInfo) => {
+              return (
+                <FontAwesome5
+                  name="car"
+                  size={24}
+                  color={tabInfo.focused ? ACTIVE_TAB_COLOR : INACTIVE_TAB_COLOR}
+                />
+              );
+            },
+        }}/>
+      </Tab.Navigator>
     </NavigationContainer>
       
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: ACTIVE_TAB_COLOR,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

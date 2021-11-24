@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-export default function StatisticsScreen({ route }) {
+export default function StatisticsScreen({ route, navigation }) {
   const name = route.params.name
 
   return (

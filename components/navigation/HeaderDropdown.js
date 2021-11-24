@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Ionicons } from 'react-native-vector-icons';
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import CarScreen from "../screens/CarScreen";
 
 const ACTIVE_TAB_COLOR = '#69A6F7'
 
@@ -12,6 +13,7 @@ const HeaderDropdown = () => {
   }
 
   return (
+    <View >
       <TouchableOpacity
         style={styles.button}
         activeOpacity={1}
@@ -28,6 +30,10 @@ const HeaderDropdown = () => {
           </View>
         </View>
       </TouchableOpacity>
+      
+      
+    </View>
+      
   );
 };
 
@@ -54,10 +60,7 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: "center",
-    backgroundColor: "transparent",
-    paddingTop: 60,
-    padding: 15,
-    backgroundColor: ACTIVE_TAB_COLOR,
+    backgroundColor: "transparent"
   }
 })
 export default HeaderDropdown;
